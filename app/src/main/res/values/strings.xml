@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My weather</string>
+    <string name="wind_speed">Wind speed</string>
+    <string name="feels_like">Feels like</string>
+    <string name="loading_weather">Loading weather</string>
+    <string name="please_wait">Please wait</string>
+    <string name="cannot_load">Can\'t load weather</string>
+    <string name="retry">Retry</string>
+</resources>
