@@ -2,7 +2,7 @@ package ru.etysoft.myweather.weather;
 
 public class WeatherObject {
 
-    private String lastUpdate;
+    private String date;
 
     private double temperature;
 
@@ -12,12 +12,32 @@ public class WeatherObject {
 
     private Condition condition;
 
-    public String getLastUpdate() {
-        return lastUpdate;
+    private double chanceOfRain;
+
+    private double chanceOfShow;
+
+    public double getChanceOfRain() {
+        return chanceOfRain;
     }
 
-    public void setLastUpdate(String lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setChanceOfRain(double chanceOfRain) {
+        this.chanceOfRain = chanceOfRain;
+    }
+
+    public double getChanceOfShow() {
+        return chanceOfShow;
+    }
+
+    public void setChanceOfShow(double chanceOfShow) {
+        this.chanceOfShow = chanceOfShow;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public double getTemperature() {
