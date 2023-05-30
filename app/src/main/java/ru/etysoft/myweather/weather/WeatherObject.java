@@ -1,5 +1,10 @@
 package ru.etysoft.myweather.weather;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 public class WeatherObject {
 
     private String date;
@@ -69,9 +74,35 @@ public class WeatherObject {
 
             case 998:
             case 1000:
-            case 1003: condition = Condition.CLOUDY;
+            case 1003:
+                condition = Condition.CLOUDY;
                 break;
 
         }
+    }
+
+    public static WeatherObject getWeatherObject(JSONObject response) throws JSONException {
+
+        WeatherObject weatherObject = new WeatherObject();
+
+        try {
+            weatherObject.setDate(response.getString("last_updated"));
+        } catch (Exception e) {
+            weatherObject.setDate(response.getString("time"));
+        }
+
+        weatherObject.setTemperature(response.getDouble("temp_c"));
+
+        weatherObject.setFeelsLikeTemperature(response.getDouble("feelslike_c"));
+
+        weatherObject.setWindSpeed(response.getDouble("wind_kph"));
+
+        weatherObject.setChanceOfRain(response.getDouble("chance_of_rain"));
+
+        weatherObject.setChanceOfShow(response.getDouble("chance_of_snow"));
+
+        weatherObject.setCondition(response.getJSONObject("condition").getInt("code"));
+
+        return weatherObject;
     }
 }
