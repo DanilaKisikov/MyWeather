@@ -6,4 +6,17 @@
     <string name="please_wait">Please wait</string>
     <string name="cannot_load">Can\'t load weather</string>
     <string name="retry">Retry</string>
+    <string name="updated_at">Updated at </string>
+    <string name="degrees">°</string>
+    <string name="km_h">km/h</string>
+
+
+    <string name="clear">Clear</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="mist">Mist</string>
+    <string name="snow">Snow</string>
+    <string name="sunny">Sunny</string>
+    <string name="rain">Rain</string>
+    <string name="thunder">Thunder</string>
+
 </resources>

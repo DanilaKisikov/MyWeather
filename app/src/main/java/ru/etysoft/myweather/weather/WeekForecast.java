@@ -11,13 +11,15 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import ru.etysoft.myweather.location.LocationHandler;
+
 public class WeekForecast {
 
     public static final int WEEK = 7;
 
     private WeatherObject currentWeather;
 
-    private ArrayList<WeatherDay> days;
+    private ArrayList<WeatherDay> days = new ArrayList<>();
 
     public WeatherObject getCurrentWeather() {
         return currentWeather;
@@ -31,7 +33,7 @@ public class WeekForecast {
 
         WeekForecast week = new WeekForecast();
 
-        String jsonString = getResponse(WeatherGetter.LOCATION);
+        String jsonString = getResponse(LocationHandler.getCurrentLocation());
 
         JSONObject object = new JSONObject(jsonString);
 
@@ -40,7 +42,8 @@ public class WeekForecast {
 
         JSONArray daysJson = object.getJSONObject("forecast").getJSONArray("forecastday");
 
-        for (int i = 0; i < WEEK; i++) {
+        int count = daysJson.length();
+        for (int i = 0; i < count; i++) {
             JSONObject dayObject = daysJson.getJSONObject(i);
 
             JSONObject thisDay = dayObject.getJSONObject("day");

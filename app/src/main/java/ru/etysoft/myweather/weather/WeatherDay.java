@@ -11,7 +11,7 @@ public class WeatherDay extends WeatherObject {
     private double avgTemp;
     private double maxWind;
 
-    private ArrayList<WeatherObject> hours;
+    private ArrayList<WeatherObject> hours = new ArrayList<>();
 
     public ArrayList<WeatherObject> getHours() {
         return hours;
