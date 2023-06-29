@@ -17,6 +17,18 @@ public class LocationHandler {
         return locations.get(locationName);
     }
 
+    public static ArrayList<Location> getLocations() {
+        return new ArrayList<Location>(locations.values());
+    }
+
+    public static ArrayList<String> getLocationNames() {
+        return new ArrayList<String>(locations.keySet());
+    }
+
+    public static void setCurrentLocation(Location currentLocation) {
+        LocationHandler.currentLocation = currentLocation;
+    }
+
     public static void initialiseLocations() {
         currentLocation = new Location("Saint-Petersburg", false,
                 59.83216778150685, 30.401565521624423);

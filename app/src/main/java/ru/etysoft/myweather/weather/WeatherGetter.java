@@ -14,6 +14,11 @@ public class WeatherGetter {
     private static final String KEY = "174b5b1ad29746299cf230242231505";
 
     static String getResponse(Location location) throws IOException {
+
+        if (location.isCurrentLoc()) {
+            // обновить расположение сейчас
+        }
+
         String myUrl = "https://api.weatherapi.com/v1/forecast.json?key=" + KEY +
                 "&q=" + location.getLatitude() + "," + location.getLongitude()
                 + "&days=" + WeekForecast.WEEK + "&aqi=no&alerts=no";

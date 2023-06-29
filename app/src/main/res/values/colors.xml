@@ -13,4 +13,7 @@
     <color name="more_dark_grey">#484848</color>
     <color name="white_grey">#F4F4F4</color>
     <color name="red">#AA674A</color>
+
+    <color name="super_light_blue">#F8FBFF</color>
+    <color name="light_blue">#8FC3FF</color>
 </resources>

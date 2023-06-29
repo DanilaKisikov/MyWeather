@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/location_choose"
+    android:backgroundTint="@color/super_light_blue">
+
+
+    <TextView
+        android:id="@+id/colored_round"
+        android:gravity="center"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/colored_round"
+        android:fontFamily="@font/inter_bold"
+        android:textColor="@color/more_dark_grey"
+        android:text="L"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/location_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:fontFamily="@font/inter_bold"
+        android:textColor="@color/more_dark_grey"
+        android:text="London"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:id="@+id/is_selected"
+        android:visibility="visible"
+        android:layout_gravity="center_vertical"
+        android:gravity="right|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/selected_icon"
+            android:layout_marginRight="12dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/selected"
+            android:textColor="@color/light_blue"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

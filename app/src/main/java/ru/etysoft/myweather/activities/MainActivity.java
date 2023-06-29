@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import ru.etysoft.myweather.R;
 import ru.etysoft.myweather.databinding.ActivityMainBinding;
 import ru.etysoft.myweather.location.LocationHandler;
@@ -17,8 +19,6 @@ import ru.etysoft.myweather.weather.WeekForecast;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
-
 
     private static WeekForecast weekForecast;
 
@@ -41,12 +41,16 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                Calendar rightNow = Calendar.getInstance();
                 while (!isDestroyed())
                 {
                     try {
-                        Thread.sleep(15000);
+                        int minute = rightNow.get(Calendar.MINUTE);
+                        long time = ((minute % 15) + 1) * 60000;
+                        Thread.sleep(time);
+                        updateWeather();
                     } catch (InterruptedException e) {
-
+                        showErrorView();
                     }
                 }
             }
@@ -54,9 +58,13 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
 
         LocationHandler.initialiseLocations();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         locationName.setText(LocationHandler.getCurrentLocation().getLocationName());
         updateWeather();
-
     }
 
     private void initViews() {
@@ -64,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
         loadingLayout = findViewById(R.id.loading_layout);
         errorLayout = findViewById(R.id.error_layout);
         locationName = findViewById(R.id.location_name);
+
+        locationName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateWeather() {
