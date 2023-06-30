@@ -168,9 +168,9 @@
                 android:paddingHorizontal="16dp">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/wind_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/temperature_icon"
                     android:elevation="64dp"
                     android:layout_marginRight="8dp"/>
 

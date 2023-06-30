@@ -13,6 +13,8 @@ import ru.etysoft.myweather.db.LocationDatabase;
 
 public class LocationHandler {
 
+    private static LocationDatabase db;
+
     private static HashMap<String, Location> locations = new HashMap<>();
 
     private static Location currentLocation;
@@ -41,7 +43,7 @@ public class LocationHandler {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                LocationDatabase db = Room.databaseBuilder(activity,
+                db = Room.databaseBuilder(activity,
                         LocationDatabase.class, "location-database").build();
 
                 List<Location> allLocations = db.getLocationDao().getAllLocations();
@@ -54,12 +56,17 @@ public class LocationHandler {
                         }
                     }
                 } else {
-                    Location local = new Location("Current", true, true);
-                    currentLocation = local;
+                    Location local = new Location("Current", true, false);
                     locations.put(local.getLocationName(), local);
 
-                    Location spb = new Location("Saint-Petersburg", false, 59.951338, 30.314051, false);
+                    Location spb = new Location("Saint-Petersburg", false, 59.951338, 30.314051, true);
                     locations.put(spb.getLocationName(), spb);
+                    currentLocation = spb;
+
+                    Location msk = new Location("Moscow", false, 55.747322, 37.610774, false);
+                    locations.put(msk.getLocationName(), msk);
+
+                    db.getLocationDao().insertAll(local, spb, msk);
                 }
 
                 listener.onProcessEnds();
@@ -68,5 +75,25 @@ public class LocationHandler {
 
         thread.start();
 
+    }
+
+    public static int updateCurrentLocation(Location location) {
+        Location previous = currentLocation;
+        previous.setCurrentLocation(false);
+        location.setCurrentLocation(true);
+
+        int i = getLocations().indexOf(currentLocation);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                db.getLocationDao().update(location);
+                db.getLocationDao().update(previous);
+            }
+        });
+        thread.start();
+
+        currentLocation = location;
+        return i;
     }
 }

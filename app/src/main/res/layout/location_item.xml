@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:padding="16dp"
     android:background="@drawable/location_choose"
     android:backgroundTint="@color/super_light_blue">
 
@@ -16,7 +16,7 @@
         android:fontFamily="@font/inter_bold"
         android:textColor="@color/more_dark_grey"
         android:text="L"
-        android:textSize="14sp"/>
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/location_name"
@@ -26,7 +26,7 @@
         android:fontFamily="@font/inter_bold"
         android:textColor="@color/more_dark_grey"
         android:text="London"
-        android:textSize="14sp"/>
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:id="@+id/is_selected"
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/selected_icon"
             android:layout_marginRight="12dp"
             />
@@ -49,7 +49,7 @@
             android:fontFamily="@font/inter_bold"
             android:text="@string/selected"
             android:textColor="@color/light_blue"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
 
     </LinearLayout>

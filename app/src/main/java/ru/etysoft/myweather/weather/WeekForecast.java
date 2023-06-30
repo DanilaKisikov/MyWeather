@@ -10,12 +10,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import ru.etysoft.myweather.location.LocationHandler;
 
 public class WeekForecast {
 
-    public static final int WEEK = 7;
+    public static final int WEEK = 3;
 
     private WeatherObject currentWeather;
 
@@ -34,6 +35,8 @@ public class WeekForecast {
         WeekForecast week = new WeekForecast();
 
         String jsonString = getResponse(LocationHandler.getCurrentLocation());
+
+        System.out.println(jsonString);
 
         JSONObject object = new JSONObject(jsonString);
 

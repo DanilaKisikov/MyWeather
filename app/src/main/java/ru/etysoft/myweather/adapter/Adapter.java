@@ -48,7 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         String name = location.getLocationName();
         holder.locationName.setText(name);
 
-        holder.coloredRound.setText(name.charAt(0));
+        holder.coloredRound.setText(String.valueOf(name.charAt(0)));
         holder.coloredRound.setBackgroundTintList(ColorStateList.valueOf(location.getColor()));
 
         if (!location.isCurrentLocation()) {
@@ -57,24 +57,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
             holder.selectedLayout.setVisibility(View.GONE);
         }
-
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.layout.setBackgroundTintList(ColorStateList.valueOf
-                        (holder.layout.getContext().getColor(R.color.light_blue)));
-                holder.selectedLayout.setVisibility(View.VISIBLE);
-
-                Location previousLocation = LocationHandler.getCurrentLocation();
-                previousLocation.setCurrentLocation(false);
-                int i = locationList.indexOf(previousLocation);
-
-                location.setCurrentLocation(true);
-                LocationHandler.setCurrentLocation(location);
-
-                notifyItemChanged(i);
-            }
-        });
 
         holder.layout.setOnTouchListener(new View.OnTouchListener() {
 
@@ -92,7 +74,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
                 if (action != MotionEvent.ACTION_UP) return true;
 
-                if (System.currentTimeMillis() - startTime < 500) return true;
+                if (System.currentTimeMillis() - startTime < 400) {
+                    holder.layout.setBackgroundTintList(ColorStateList.valueOf
+                            (holder.layout.getContext().getColor(R.color.super_light_blue)));
+                    holder.selectedLayout.setVisibility(View.VISIBLE);
+
+                    int i = LocationHandler.updateCurrentLocation(location);
+
+                    notifyItemChanged(i);
+                    return true;
+                }
 
                 // BottomSheet change
 

@@ -3,6 +3,7 @@ package ru.etysoft.myweather.location;
 import android.graphics.Color;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Random;
@@ -27,6 +28,7 @@ public class Location {
 
     private boolean isCurrentLocation;
 
+    @Ignore
     public Location(String locationName, boolean isDeletable, double latitude, double longitude,
                     boolean isCurrentLocation) {
         this.locationName = locationName;
@@ -37,11 +39,24 @@ public class Location {
         this.isCurrentLocation = isCurrentLocation;
     }
 
+    @Ignore
     public Location(String locationName, boolean isLocal, boolean isCurrentLocation) {
         this.locationName = locationName;
         this.isLocal = isLocal;
         this.isDeletable = false;
         this.generateColor();
+        this.isCurrentLocation = isCurrentLocation;
+    }
+
+    public Location(long id, String locationName, boolean isDeletable, double latitude,
+                    double longitude, boolean isLocal, int color, boolean isCurrentLocation) {
+        this.id = id;
+        this.locationName = locationName;
+        this.isDeletable = isDeletable;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.isLocal = isLocal;
+        this.color = color;
         this.isCurrentLocation = isCurrentLocation;
     }
 

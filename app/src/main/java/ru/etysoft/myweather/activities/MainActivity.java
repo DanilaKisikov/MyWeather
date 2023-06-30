@@ -1,6 +1,7 @@
 package ru.etysoft.myweather.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.List;
 
 import ru.etysoft.myweather.R;
 import ru.etysoft.myweather.databinding.ActivityMainBinding;
+import ru.etysoft.myweather.db.LocationDatabase;
+import ru.etysoft.myweather.location.Location;
 import ru.etysoft.myweather.location.LocationHandler;
 import ru.etysoft.myweather.location.LocationLoadListener;
 import ru.etysoft.myweather.weather.WeatherObject;
@@ -49,9 +53,19 @@ public class MainActivity extends AppCompatActivity {
                         int minute = rightNow.get(Calendar.MINUTE);
                         long time = ((minute % 15) + 1) * 60000;
                         Thread.sleep(time);
-                        updateWeather();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateWeather();
+                            }
+                        });
                     } catch (InterruptedException e) {
-                        showErrorView();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showErrorView();
+                            }
+                        });
                     }
                 }
             }
@@ -97,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateWeather() {
+        mainLayout.setVisibility(View.INVISIBLE);
         loadingLayout.setVisibility(View.VISIBLE);
         Thread thread = new Thread(new Runnable() {
             @Override

@@ -27,6 +27,8 @@ public class WeatherGetter {
                 .url(myUrl)
                 .build();
 
+        System.out.println(myUrl);
+
         Response response = client.newCall(request).execute();
         String jsonResponse = response.body().string();
 

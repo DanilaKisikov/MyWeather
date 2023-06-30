@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MyWeather"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".activities.LocationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
