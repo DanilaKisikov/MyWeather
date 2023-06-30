@@ -2,34 +2,47 @@ package ru.etysoft.myweather.location;
 
 import android.graphics.Color;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Random;
 
+@Entity
 public class Location {
+
+    @PrimaryKey(autoGenerate = true)
+    private long id;
 
     private String locationName;
 
-    private boolean isDeletable;
+    private boolean isDeletable = false;
 
     private double latitude;
 
     private double longitude;
 
-    private boolean isCurrentLoc = false;
+    private boolean isLocal = false;
 
     private int color;
 
-    public Location(String locationName, boolean isDeletable, double latitude, double longitude) {
+    private boolean isCurrentLocation;
+
+    public Location(String locationName, boolean isDeletable, double latitude, double longitude,
+                    boolean isCurrentLocation) {
         this.locationName = locationName;
         this.isDeletable = isDeletable;
         this.latitude = latitude;
         this.longitude = longitude;
         this.generateColor();
+        this.isCurrentLocation = isCurrentLocation;
     }
 
-    public Location(String locationName, boolean isRealCurrent) {
+    public Location(String locationName, boolean isLocal, boolean isCurrentLocation) {
         this.locationName = locationName;
-        this.isCurrentLoc = isRealCurrent;
+        this.isLocal = isLocal;
+        this.isDeletable = false;
         this.generateColor();
+        this.isCurrentLocation = isCurrentLocation;
     }
 
     public String getLocationName() {
@@ -48,12 +61,52 @@ public class Location {
         return isDeletable;
     }
 
-    public boolean isCurrentLoc() {
-        return isCurrentLoc;
+    public boolean isLocal() {
+        return isLocal;
     }
 
     public int getColor() {
         return color;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public void setDeletable(boolean deletable) {
+        isDeletable = deletable;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLocal(boolean local) {
+        isLocal = local;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean isCurrentLocation() {
+        return isCurrentLocation;
+    }
+
+    public void setCurrentLocation(boolean currentLocation) {
+        isCurrentLocation = currentLocation;
     }
 
     private void generateColor() {

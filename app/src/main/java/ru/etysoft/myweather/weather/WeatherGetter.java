@@ -15,7 +15,7 @@ public class WeatherGetter {
 
     static String getResponse(Location location) throws IOException {
 
-        if (location.isCurrentLoc()) {
+        if (location.isLocal()) {
             // обновить расположение сейчас
         }
 

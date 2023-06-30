@@ -1,8 +1,10 @@
 package ru.etysoft.myweather.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -39,6 +41,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         return new ViewHolder(this.inflater.inflate(R.layout.location_item, parent, false));
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
         Location location = locationList.get(position);
@@ -48,7 +51,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         holder.coloredRound.setText(name.charAt(0));
         holder.coloredRound.setBackgroundTintList(ColorStateList.valueOf(location.getColor()));
 
-        if (!location.equals(LocationHandler.getCurrentLocation())) {
+        if (!location.isCurrentLocation()) {
             holder.layout.setBackgroundTintList(ColorStateList.valueOf
                     (holder.layout.getContext().getColor(R.color.white)));
 
@@ -63,11 +66,37 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
                 holder.selectedLayout.setVisibility(View.VISIBLE);
 
                 Location previousLocation = LocationHandler.getCurrentLocation();
+                previousLocation.setCurrentLocation(false);
                 int i = locationList.indexOf(previousLocation);
 
-                LocationHandler.setCurrentLocation(LocationHandler.getLocation(name));
+                location.setCurrentLocation(true);
+                LocationHandler.setCurrentLocation(location);
 
                 notifyItemChanged(i);
+            }
+        });
+
+        holder.layout.setOnTouchListener(new View.OnTouchListener() {
+
+            Long startTime;
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int action = motionEvent.getAction();
+
+                long time;
+
+                if (action == MotionEvent.ACTION_DOWN) {
+                    startTime = System.currentTimeMillis();
+                    return true;
+                }
+
+                if (action != MotionEvent.ACTION_UP) return true;
+
+                if (System.currentTimeMillis() - startTime < 500) return true;
+
+                // BottomSheet change
+
+                return true;
             }
         });
     }

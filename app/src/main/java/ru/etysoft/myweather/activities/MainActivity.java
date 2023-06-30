@@ -13,6 +13,7 @@ import java.util.Calendar;
 import ru.etysoft.myweather.R;
 import ru.etysoft.myweather.databinding.ActivityMainBinding;
 import ru.etysoft.myweather.location.LocationHandler;
+import ru.etysoft.myweather.location.LocationLoadListener;
 import ru.etysoft.myweather.weather.WeatherObject;
 import ru.etysoft.myweather.weather.WeekForecast;
 
@@ -57,14 +58,27 @@ public class MainActivity extends AppCompatActivity {
         });
         thread.start();
 
-        LocationHandler.initialiseLocations();
+        LocationHandler.initialiseLocations(this, new LocationLoadListener() {
+            @Override
+            public void onProcessEnds() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        locationName.setText(LocationHandler.getCurrentLocation().getLocationName());
+                        updateWeather();
+                    }
+                });
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        locationName.setText(LocationHandler.getCurrentLocation().getLocationName());
-        updateWeather();
+        if (LocationHandler.getCurrentLocation() != null) {
+            locationName.setText(LocationHandler.getCurrentLocation().getLocationName());
+            updateWeather();
+        }
     }
 
     private void initViews() {
