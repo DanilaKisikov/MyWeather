@@ -1,8 +1,12 @@
 package ru.etysoft.myweather.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -56,6 +60,4 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

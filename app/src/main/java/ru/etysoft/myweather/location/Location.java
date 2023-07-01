@@ -29,6 +29,10 @@ public class Location {
     private boolean isCurrentLocation;
 
     @Ignore
+    public Location() {
+    }
+
+    @Ignore
     public Location(String locationName, boolean isDeletable, double latitude, double longitude,
                     boolean isCurrentLocation) {
         this.locationName = locationName;

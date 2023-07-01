@@ -1,10 +1,21 @@
 package ru.etysoft.myweather.weather;
 
+import android.Manifest;
+import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageManager;
+
+import androidx.core.app.ActivityCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import ru.etysoft.myweather.activities.LocationActivity;
+import ru.etysoft.myweather.activities.MainActivity;
 import ru.etysoft.myweather.location.Location;
 
 public class WeatherGetter {
@@ -17,6 +28,8 @@ public class WeatherGetter {
 
         if (location.isLocal()) {
             // обновить расположение сейчас
+            location.setLongitude(MainActivity.getCurrentLocal().getLongitude());
+            location.setLatitude(MainActivity.getCurrentLocal().getLatitude());
         }
 
         String myUrl = "https://api.weatherapi.com/v1/forecast.json?key=" + KEY +
